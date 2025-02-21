@@ -33,13 +33,13 @@ public class CsvService {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT
                     .withFirstRecordAsHeader()
                     .parse(reader);
-            for (CSVRecord record : records) {
+            for (CSVRecord recordCsv : records) {
                 var utente = new Utente();
-                utente.setId(Long.valueOf(record.get("id")));
-                utente.setNome(record.get("nome"));
-                utente.setCognome(record.get("cognome"));
-                utente.setDataNascita("dataNascita");
-                utente.setDataInserimento("dataInserimento");
+                utente.setId(Long.valueOf(recordCsv.get("id")));
+                utente.setNome(recordCsv.get("nome"));
+                utente.setCognome(recordCsv.get("cognome"));
+                utente.setDataNascita(recordCsv.get("dataNascita"));
+                utente.setDataInserimento(recordCsv.get("dataInserimento"));
                 // Parse additional fields as needed
                 utenteRepo.save(utente);
             }
@@ -65,13 +65,13 @@ public class CsvService {
                     .parallel()
                     // qui lascio fare la gestione a spring che sa che il thread dovra essere distrutto
                     .runOn(Schedulers.boundedElastic())
-                    .flatMap(record -> {
+                    .flatMap(recordCsv -> {
                         var utente = new Utente();
-                        utente.setId(Long.valueOf(record.get("id")));
-                        utente.setNome(record.get("nome"));
-                        utente.setCognome(record.get("cognome"));
-                        utente.setDataNascita("dataNascita");
-                        utente.setDataInserimento("dataInserimento");
+                        utente.setId(Long.valueOf(recordCsv.get("id")));
+                        utente.setNome(recordCsv.get("nome"));
+                        utente.setCognome(recordCsv.get("cognome"));
+                        utente.setDataNascita(recordCsv.get("dataNascita"));
+                        utente.setDataInserimento(recordCsv.get("dataInserimento"));
                         // Parse additional fields as needed
                         utenteRepo.save(utente);
                         return null;

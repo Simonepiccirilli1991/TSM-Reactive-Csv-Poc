@@ -1,1 +1,16 @@
-spring.application.name=poc
+spring:
+  application.name: csv example
+  #abilito thread virtuali
+  threads:
+    virtual.enabled: true
+  #DB h2 connection
+  datasource:
+    driver-class-name: org.h2.Driver
+    password:
+    url: jdbc:h2:mem:csvdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL;
+    username: sa
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+      generate-ddl: true
+      hibernate:
+        ddl-auto: update
